@@ -1,0 +1,10 @@
+{
+  "name": "yugioh_server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Ruiqi Peng",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^3.1.2"
+  }
+}
