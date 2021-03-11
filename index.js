@@ -39,13 +39,22 @@ const seeking_match = (socket) => {
       if (!matched_ids[key]) {
           has_space = true
           matched_ids[key] = socket.id
+          matched_ids[socket.id] = key
+
+          //decides who starts first
+          const both_players = [socket.id, key]
+          const player_starts = both_players[Math.floor(Math.random() * both_players.length)];
 
           //notify both players that they are matched with each other
           io.to(key).emit("matched", {
+              my_id: key,
               opponent: socket.id,
+              player_starts: player_starts
           })
           io.to(socket.id).emit("matched", {
-              opponent: key
+              my_id: socket.id,
+              opponent: key,
+              player_starts: player_starts
           })
           break
       }
