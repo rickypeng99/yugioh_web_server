@@ -20,16 +20,27 @@ io.on("connection", socket => {
     sending_deck(socket, data)
   })
 
+  socket.on("summon", (data) => {
+    sending_summon(socket, data)
+  })
+
   seeking_match(socket)
+
+  
   
 
 });
 
 const sending_deck = (socket, data) => {
-    console.log(data.opponent_id)
-    io.to(data.opponent_id).emit("receive_deck", {
+    io.to(matched_ids[socket.id]).emit("receive_deck", {
         deck: data.deck,
     })
+}
+
+const sending_summon = (socket, data) => {
+  io.to(matched_ids[socket.id]).emit("opponent_summon", {
+    data: data
+  })
 }
 
 const seeking_match = (socket) => {
