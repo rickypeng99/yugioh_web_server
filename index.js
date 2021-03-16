@@ -24,12 +24,24 @@ io.on("connection", socket => {
     sending_summon(socket, data)
   })
 
+  socket.on("change_phase", (data) => {
+    sending_change_phase(socket, data)
+  })
+
+
   seeking_match(socket)
+
 
   
   
 
 });
+
+const sending_change_phase = (socket, data) => {
+  io.to(matched_ids[socket.id]).emit("opponent_change_phase", {
+    data: data
+  })
+}
 
 const sending_deck = (socket, data) => {
     io.to(matched_ids[socket.id]).emit("receive_deck", {
