@@ -28,6 +28,9 @@ io.on("connection", socket => {
     sending_change_phase(socket, data)
   })
 
+  socket.on("tribute", (data) => {
+    sending_tribute(socket, data)
+  })
 
   seeking_match(socket)
 
@@ -36,6 +39,12 @@ io.on("connection", socket => {
   
 
 });
+
+const sending_tribute = (socket, data) => {
+  io.to(matched_ids[socket.id]).emit("opponent_tribute", {
+    data: data
+  })
+}
 
 const sending_change_phase = (socket, data) => {
   io.to(matched_ids[socket.id]).emit("opponent_change_phase", {
