@@ -20,9 +20,24 @@ io.on("connection", socket => {
     sending_deck(socket, data)
   })
 
+  /**
+   * monster related
+   */
   socket.on("summon", (data) => {
     sending_summon(socket, data)
   })
+
+  socket.on("attack_start", (data) => {
+    console.log(data)
+    sending_attack_start(socket, data)
+  })
+
+  socket.on("attack_ack", (data) => {
+    console.log("ack")
+    console.log(data)
+    sending_attack_ack(socket, data)
+  })
+
 
   socket.on("change_phase", (data) => {
     sending_change_phase(socket, data)
@@ -31,6 +46,8 @@ io.on("connection", socket => {
   socket.on("tribute", (data) => {
     sending_tribute(socket, data)
   })
+
+  
 
   seeking_match(socket)
 
@@ -60,6 +77,18 @@ const sending_deck = (socket, data) => {
 
 const sending_summon = (socket, data) => {
   io.to(matched_ids[socket.id]).emit("opponent_summon", {
+    data: data
+  })
+}
+
+const sending_attack_start = (socket, data) => {
+  io.to(matched_ids[socket.id]).emit("opponent_attack_start", {
+    data: data
+  })
+}
+
+const sending_attack_ack = (socket, data) => {
+  io.to(matched_ids[socket.id]).emit("opponent_attack_ack", {
     data: data
   })
 }
