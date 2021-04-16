@@ -1,0 +1,3 @@
+[submodule "yugioh_web"]
+	path = yugioh_web
+	url = https://github.com/rickypeng99/yugioh_web.git
